@@ -20,4 +20,4 @@ lazy val baz = (project in file("baz")).settings(commonSettings: _*)
 lazy val foo = (project in file("foo")).settings(commonSettings: _*) dependsOn(bar, baz)
 
 // The magic
-run in Compile <<= (run in Compile in foo)
+onLoad in Global := (Command.process("project foo", _: State)) compose (onLoad in Global).value
